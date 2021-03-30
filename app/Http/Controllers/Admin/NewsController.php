@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
-    // 以下を追記
+    // addアクションを追記
   public function add()
   {
       return view('admin.news.create');

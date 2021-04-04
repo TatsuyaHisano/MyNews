@@ -10,7 +10,7 @@ class ProfileController extends Controller
     //課題５のActionを追記
     public function add()
     {
-        return view('admin.profile.creste');
+        return view('admin.profile.create');
     }
     
     public function create()
@@ -20,7 +20,7 @@ class ProfileController extends Controller
     
     public function edit()
     {
-        return view('admin.prfile.edit');
+        return view('admin.profile.edit');
     }
     
     public function update()

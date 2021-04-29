@@ -21,9 +21,9 @@
                 <div class="row">
                     <div class="col-md-8 mx-auto">
                         <h2>ニュース新規作成</h2>
-                        <from action="{{ action('Admin\NewsController@create') }}" method="post"enctype="multipart/from-data">
+                        <form action="{{ action('Admin\NewsController@create') }}" method="post" enctype="multipart/form-data">
                             
-                            @if (count($errors) >0)
+                            @if (count($errors) > 0)
                                 <ul>
                                     @foreach($errors->all() as $e)
                                         <li>{{ $e }}</li>
@@ -50,7 +50,7 @@
                             </div>
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-primary" value="更新">
-                        </from>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -18,12 +18,18 @@ Route::get('/', function () {
 // 13 ニュース投稿画面を作成しよう 編集
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('news/create', 'Admin\NewsController@add');
-    Route::post('news/create', 'Admin\NewsController@create'); # 追記
+    Route::post('news/create', 'Admin\NewsController@create');
     Route::get('profile/create', 'Admin\ProfileController@add'); # 課題追記
     Route::post('profile/create', 'Admin\ProfileController@create'); # 課題追記
     Route::post('profile/edit', 'Admin\ProfileController@update'); # 課題追記
 });
 
+//15 投稿したニュース一覧を表示しよう 追記
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
+    Route::post('news/create', 'Admin\NewsController@create')->middleware('auth');
+    Route::get('news', 'Admin\NewsController@index')->middleware('auth'); // 追記
+});
 
 Auth::routes();
 

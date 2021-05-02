@@ -15,4 +15,12 @@ class Profile extends Model
         'hobby' => 'required',
         'introduction' => 'required',
     );
+    
+     // 17 編集履歴を実装しよう 以下を追記
+    // Profile Modelに関連付けを行う
+    public function profilehistories()
+    {
+        return $this->hasMany('App\Profilehistory');
+        
+    }
 }

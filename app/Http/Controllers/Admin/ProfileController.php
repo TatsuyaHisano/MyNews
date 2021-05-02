@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 // 14 課題5追記
 use App\Profile;
 
+// 以下を追記
+use App\Profilehistory;
+
+use Carbon\Carbon;
+
 class ProfileController extends Controller
 {
     //課題５のActionを追記
@@ -75,6 +80,13 @@ class ProfileController extends Controller
       
       // 該当するデータを上書きして保存する
       $profile->fill($profile_form)->save();
+      
+      // 以下を追記
+      $history = new Profilehistory;
+      $history->profile_id = $profile->id;
+      $history->edited_at = Carbon::now();
+      $history->save();
+      
       
       return redirect('admin/profile');
   }

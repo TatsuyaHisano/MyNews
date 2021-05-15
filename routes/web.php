@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,40 +9,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-// 13 ニュース投稿画面を作成しよう 編集
+// 「/admin」かつ、auth認証必要URLとして、グルーピング
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-    Route::get('news/create', 'Admin\NewsController@add');
-    Route::post('news/create', 'Admin\NewsController@create');
-    Route::get('profile/create', 'Admin\ProfileController@add'); # 課題追記
-    Route::post('profile/create', 'Admin\ProfileController@create'); # 課題追記
-    Route::post('profile/edit', 'Admin\ProfileController@update'); # 課題追記
+    // 「/news」でグルーピング
+    Route::group(['prefix' => 'news'], function() {
+        // 「/admin/news」
+        Route::get('', 'Admin\NewsController@index');
+        // 「/admin/news/create」
+        Route::get('create', 'Admin\NewsController@add');
+        Route::post('create', 'Admin\NewsController@create');
+        Route::get('edit', 'Admin\NewsController@edit');
+        Route::post('edit', 'Admin\NewsController@update');
+        Route::get('delete', 'Admin\NewsController@delete');
+    });
+    // 「/profile」でグルーピング
+    Route::group(['prefix' => 'profile'], function() {
+        Route::get('', 'Admin\ProfileController@index');
+        Route::get('create', 'Admin\ProfileController@add'); # 課題追記
+        Route::post('create', 'Admin\ProfileController@create'); # 課題追記
+        Route::get('edit', 'Admin\ProfileController@edit'); // 追記
+        Route::post('edit', 'Admin\ProfileController@update'); // 追記
+        Route::get('delete', 'Admin\ProfileController@delete'); // 追記
+    });
 });
-
-//15 投稿したニュース一覧を表示しよう 追記
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
-    Route::post('news/create', 'Admin\NewsController@create')->middleware('auth');
-    Route::get('news', 'Admin\NewsController@index')->middleware('auth');
-    Route::get('news/edit', 'Admin\NewsController@edit')->middleware('auth'); // 追記
-    Route::post('news/edit', 'Admin\NewsController@update')->middleware('auth'); // 追記
-    Route::get('news/delete', 'Admin\NewsController@delete')->middleware('auth'); // 追記
-});
-
-//16 課題追記
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-    Route::post('profile/create', 'Admin\ProfileController@create')->middleware('auth');
-    Route::get('profile', 'Admin\ProfileController@index')->middleware('auth');
-    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth'); // 追記
-    Route::post('profile/edit', 'Admin\ProfileController@update')->middleware('auth'); // 追記
-    Route::get('profile/delete', 'Admin\ProfileController@delete')->middleware('auth'); // 追記
-});
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'NewsController@index');

@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('name', '登録済みプロフィールの一覧')
 
-// 16 課題追記
 @section('content')
     <div class="container">
         <div class="row">

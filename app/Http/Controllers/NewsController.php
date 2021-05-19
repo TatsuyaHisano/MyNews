@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\HTML;
-
-//追記
+use App\Http\Controllers\Controller;
 use App\News;
+use App\History;
+use Carbon\Carbon;
+use Storage; //追加
 
 class NewsController extends Controller
 {
